@@ -3,9 +3,10 @@
 # • First read the file character by character
 # • Secondly, read the file line by line
 # • Thirdly, read the whole file at once
+import os
 
 print('>>>> BY CHAR<<<<')
-f = open('a.txt', 'r', encoding = 'utf-8') #r=read, w=write, a=append
+f = open('a.txt', encoding = 'utf-8') #r=read, w=write, a=append
 c = f.read(1)
 while c:
     print(c, end='')
@@ -69,7 +70,27 @@ with open('b.txt', encoding='utf-8') as f:
 # • Using this function, write the result to the ‘sorted_c.txt’ file
 # • Do not use external modul
 
+list = []
 
+with open('c.csv', encoding='utf') as f:
+    line = f.readline()
+    line = f.readline()
+    while line:
+        act = line.split(';')
+        list.append([act[0], act[1], act[2], act[3].strip('\n')])
+        line = f.readline()
+        
+for i in range(len(list)-1):
+    for j in range(len(list)-i-1):
+        if list[j][2].strip(" ") > list[j+1][2].strip(" "):
+            list[j], list[j+1] = list[j+1], list[j]
+            
+with open("assignment_3.txt", "w") as f:
+    f.write('BookID\tAuthor\tTitle\tPrice\n')
+    for i in range(len(list)):
+        f.write(f'{list[i][0]}\t{list[i][1]}\t{list[i][2]}\t{list[i][3]}\n')
+        
+    
 
 
 # Assignment/exercise 4 (40 minutes)
@@ -80,8 +101,40 @@ with open('b.txt', encoding='utf-8') as f:
 # • What is the difference between the price of the most expensive and the 
 # cheapest book? (Use the minimum/maximum selection algorithm)
 
+list = []
+print('________4________')
+with open('c.csv', encoding='utf') as f:
+    line = f.readline()
+    line = f.readline()
+    while line:
+        act = line.split(';')
+        list.append([act[0], act[1], act[2], act[3].strip('\n')])
+        line = f.readline()
 
-
+print('401----------')
+for i in range(len(list)):
+    if list[i][2][0] == 'B':
+        print(list[i])
+print('402----------')
+autbook = {}
+for i in range(len(list)):
+    if list[i][2] in autbook.keys():
+        autbook[list[i][2]] += 1
+    else:
+        autbook[list[i][2]] = 1
+        
+for i in autbook:
+    print(f'{autbook[i]}  {i}')
+print('403----------')
+min = list[0][3]
+max = list[0][3]
+for i in range(len(list)):
+    if list[i][3] < min:
+        min = list[i][3]
+    if list[i][3] > max:
+        max = list[i][3]
+print(f'The most expensive book: {max}\nThe cheapest book: {min}\nThe difference: {float(max)-float(min)}')
+print('______________________________________________________fasz:___________________________________:)')
 
 # Assignment/exercise 5 (20 minutes)
 # Write procedures/functions to implement the following file operations on the text file 
@@ -90,6 +143,18 @@ with open('b.txt', encoding='utf-8') as f:
 # • use exception handling in each case
 # • save them into a new module
 
+name = input('please enter the name of the file')
+def create(name):
+    with open(name, "w") as f:
+        f.write()
+def naming(name, new):
+    os.rename(name, new)
+def delete(name):
+    os.remove(name)
+def appendaré(name, what):
+    with open(name, 'w') as f:
+        f.write(what)
+    
 
 
 
